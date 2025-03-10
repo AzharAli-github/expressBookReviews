@@ -12,6 +12,12 @@ app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUni
 
 app.use("/customer/auth/*", function auth(req,res,next){
 //Write the authenication mechanism here
+app.use(session({
+    secret: "fingerprint",
+    resave: true,                // Forces session to be saved even when unmodified
+    saveUninitialized: true       // Forces uninitialized sessions to be saved
+}));
+
 });
  
 const PORT =5000;
@@ -19,4 +25,4 @@ const PORT =5000;
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
 
-app.listen(PORT,()=>console.log("Server is running"));
+app.listen(PORT,()=>console.log(`Server is running ${PORT}`));
